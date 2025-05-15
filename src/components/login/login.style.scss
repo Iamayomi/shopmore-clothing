@@ -1,0 +1,47 @@
+.sign-in {
+    margin: auto;
+    width: 380px;
+    display: inline-block;
+    justify-content: center;
+    margin-left: 24rem;
+
+    .title {
+        margin: 10px 5px;
+    }
+
+    .forgot-password {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .forgot-password-link {
+            color: #302e2a;
+            margin: 0 10px;
+            font-weight: bolder;
+        }
+    }
+
+    .new-account {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .signup-link {
+            color: #302e2a;
+            margin: 0 5px;
+            font-weight: bolder;
+        }
+    }
+
+    .buttons {
+        display: inline-block;
+        margin: 6px;
+        justify-content: space-between;
+
+        .google-icon {
+            margin-right: 10px;
+            color: #ffffff;
+            font-size: 18px;
+        }
+    }
+}

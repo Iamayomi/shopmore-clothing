@@ -1,0 +1,23 @@
+.sign-up {
+  margin: auto;
+  width: 380px;
+  display: inline-block;
+  justify-content: center;
+  margin-left: 24rem;
+
+  .title {
+    margin: 10px 0;
+  }
+
+  .sign-in-user {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .sign-in-link {
+      color: #302e2a;
+      margin: 0 10px;
+      font-weight: bolder;
+    }
+  }
+}
