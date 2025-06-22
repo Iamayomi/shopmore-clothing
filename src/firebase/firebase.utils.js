@@ -1,16 +1,27 @@
 import { initializeApp } from "firebase/app";
-import { doc, getDoc, setDoc, getFirestore, serverTimestamp } from "firebase/firestore";
+import { doc, getDoc, setDoc, getFirestore } from "firebase/firestore";
 import { getAuth, GoogleAuthProvider, signInWithPopup } from "firebase/auth";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyBb-tNwbJxzkhXUUB0tTJAfoftz0pFyOH0",
-  authDomain: "shopmore-38f7f.firebaseapp.com",
-  projectId: "shopmore-38f7f",
-  storageBucket: "shopmore-38f7f.firebasestorage.app",
-  messagingSenderId: "53287929429",
-  appId: "1:53287929429:web:283fc34444345539af36dc",
-  measurementId: "G-G8M9SKP5QW",
+  apiKey: "AIzaSyCwuMJdXS1NawJGOrmAhj9A0q427KtkIDQ",
+  authDomain: "shopmore-clothings.firebaseapp.com",
+  projectId: "shopmore-clothings",
+  storageBucket: "shopmore-clothings.firebasestorage.app",
+  messagingSenderId: "40512861684",
+  appId: "1:40512861684:web:e536970814092f1e6635a1",
+  measurementId: "G-ZWVJP7TF8L",
 };
+
+const app = initializeApp(firebaseConfig);
+
+export const firestore = getFirestore(app);
+export const auth = getAuth(app);
+
+const provider = new GoogleAuthProvider();
+
+provider.setCustomParameters({ prompt: "select_account" });
+
+export const signInWithGoogle = () => signInWithPopup(auth, provider);
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;
@@ -21,7 +32,7 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   if (!userSnap.exists()) {
     const { displayName, email, photoURL } = userAuth;
-    const createdAt = serverTimestamp();
+    const createdAt = new Date().toISOString();
 
     try {
       await setDoc(userRef, {
@@ -38,14 +49,3 @@ export const createUserProfileDocument = async (userAuth, additionalData) => {
 
   return userRef;
 };
-
-const app = initializeApp(firebaseConfig);
-
-export const auth = getAuth(app);
-
-export const firestore = getFirestore(app);
-
-const provider = new GoogleAuthProvider();
-provider.setCustomParameters({ prompt: "select_account" });
-
-export const signInWithGoogle = () => signInWithPopup(auth, provider);

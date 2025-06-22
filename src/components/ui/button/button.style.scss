@@ -1,9 +1,7 @@
 .custom-button {
     min-width: 100%;
     margin: 10px 0;
-
     height: 50px;
-
     letter-spacing: 0.5px;
     line-height: 14px;
     padding: 0 70px 0 70px;
@@ -27,5 +25,24 @@
         background-color: #076b99;
         color: white;
         border: none;
+
+        &:hover {
+            background-color: #357ae8;
+            border: none;
+        }
+    }
+
+    &.inverted {
+        background-color: white;
+        color: black;
+        padding: 16px;
+        border: 1px solid black;
+        border-radius: 1px;
+
+        &:hover {
+            background-color: black;
+            color: white;
+            border: none;
+        }
     }
 }

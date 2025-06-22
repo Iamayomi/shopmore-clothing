@@ -1,7 +1,5 @@
 import React from "react";
-
 import { useNavigate, useMatch } from "react-router-dom";
-
 import "./menu-item.style.scss";
 
 const MenuItem = ({ title, imageUrl, size, linkUrl }) => {

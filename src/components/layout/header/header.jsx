@@ -1,14 +1,15 @@
-import React from "react";
-
+import { useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-
-import { auth } from "../../firebase/firebase.utils";
-
-import Logo from "../../assets/crown.svg";
-
+import { auth } from "../../../firebase/firebase.utils";
+import Logo from "../../../assets/crown.svg";
+import CartIcon from "../../cart-icon/cart-icon";
+import CartDropDown from "../../ui/cart-dropdown/cart-dropdown";
 import "./header.style.scss";
 
-const Header = ({ currentUser }) => {
+const Header = () => {
+  const currentUser = useSelector((state) => state.user.currentUser);
+  const hidden = useSelector((state) => state.cart.hidden);
+
   return (
     <>
       <div className="header">
@@ -19,21 +20,21 @@ const Header = ({ currentUser }) => {
           <Link className="option" to="/shop">
             SHOP
           </Link>
-          <Link className="option" to="/shop">
+          <Link className="option" to="/contact">
             CONTACT
           </Link>
-          <Link>
+          <Link className="option" to="/signin">
             {currentUser ? (
               <div className="option" onClick={() => auth.signOut()}>
                 SIGN OUT
               </div>
             ) : (
-              <div className="option" to="/sigin">
-                SIGN IN
-              </div>
+              <div>SIGN IN</div>
             )}
           </Link>
+          <CartIcon />
         </div>
+        {hidden ? null : <CartDropDown />}
       </div>
     </>
   );
