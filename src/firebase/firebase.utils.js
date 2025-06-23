@@ -21,7 +21,7 @@ const provider = new GoogleAuthProvider();
 
 provider.setCustomParameters({ prompt: "select_account" });
 
-export const signInWithGoogle = () => signInWithPopup(auth, provider);
+export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
 
 export const createUserProfileDocument = async (userAuth, additionalData) => {
   if (!userAuth) return;

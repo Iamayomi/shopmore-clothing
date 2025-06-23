@@ -9,15 +9,24 @@ const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    setCart: (state) => {
+    toggleCart: (state) => {
       state.hidden = !state.hidden;
     },
+
+    addItem: (state, action) => {
+      state.cartItems = [...state.cartItems, ...action.payload];
+    },
+
     addItems: (state, action) => {
-      state.cartItems = [state.cartItems, ...action.payload];
+      state.cartItems = [...state.cartItems, ...action.payload];
+    },
+
+    clearCart: (state) => {
+      state.cartItems = [];
     },
   },
 });
 
-export const { setCart, addItems } = cartSlice.actions;
+export const { toggleCart, setCart, addItems } = cartSlice.actions;
 
 export default cartSlice.reducer;

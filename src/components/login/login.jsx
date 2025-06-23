@@ -3,10 +3,14 @@ import { Link } from "react-router-dom";
 import "./login.style.scss";
 import FormInput from "../ui/form/form";
 import Button from "../ui/button/button";
-import { auth, signInWithGoogle } from "../../firebase/firebase.utils";
+import Message from "../ui/message/message";
+
+import { auth, signInWithGooglePopup, createUserProfileDocument } from "../../firebase/firebase.utils";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 const LogIn = () => {
+  const [message, setMessage] = useState(null);
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -19,14 +23,42 @@ const LogIn = () => {
     try {
       await signInWithEmailAndPassword(auth, email, password);
       setFormData({ email: "", password: "" });
+      setMessage({
+        type: "success",
+        message: "User Signed in successfully!",
+      });
     } catch (error) {
       console.log(error);
+      setMessage({
+        type: "error",
+        message: `User Failed to sign in: ${error.message}`,
+      });
     }
   };
 
   const handleChange = (e) => {
     const { value, name } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleGoogleSignIn = async () => {
+    try {
+      const result = await signInWithGooglePopup();
+      await createUserProfileDocument(result.user);
+      setMessage({
+        type: "success",
+        message: "Signed in successfully!",
+      });
+    } catch (error) {
+      setMessage({
+        type: "error",
+        message: `Failed to sign in: ${error.message}`,
+      });
+    }
+  };
+
+  const closeMessge = () => {
+    setMessage(null);
   };
 
   return (
@@ -43,10 +75,11 @@ const LogIn = () => {
           <div className="buttons">
             <Button type="submit">Sign In</Button>
 
-            <Button onClick={signInWithGoogle} isGoogleSignIn>
+            <Button onClick={handleGoogleSignIn} isGoogleSignIn>
               <i className="fab fa-google google-icon"></i>
               Sign with Google
             </Button>
+            {message && <Message type={message.type} message={message.message} onClose={closeMessge} />}
           </div>
           <div className="forgot-password">
             <p>Forget?</p>
